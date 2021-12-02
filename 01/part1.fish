@@ -1,3 +1,5 @@
+#!/usr/bin/env fish
+
 set last (aocf input | head -n 1) 
 for num in (aocf input)
     echo $num

@@ -1,3 +1,7 @@
+#!/usr/bin/env fish
+
+aocf checkout 1 2021
+
 set buf 0 0 0
 set idx 0
 set sum 0
