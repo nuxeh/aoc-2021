@@ -4,7 +4,8 @@ sum_1+=$1
 sum_2+=$2
 sum_3+=$3
 sum_4+=$4
-} END {
+} END { 
+ print "raradasd"
 print sum_0
 print sum_1
 print sum_2
