@@ -19,5 +19,4 @@ END {
 	print "gamma=" gamma
 	print "epsilon=" epsilon
 	print "power=" epsilon * gamma
-
 }
