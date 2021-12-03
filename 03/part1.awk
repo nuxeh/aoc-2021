@@ -4,15 +4,20 @@ BEGIN {
 
 {
 	for (i=1; i<=NF; i++) {
-		print i
 		b[i] += $i
 	}
 }
 
 END {
-	print b[1]
-	print b[2]
-	print b[3]
-	print b[4]
-	print b[5]
+	for (i=1; i<=NF; i++) {
+		if (b[i]<NR/2)
+			epsilon += lshift(1, NF-i)
+		else
+			gamma += lshift(1, NF-i)
+
+	}
+	print "gamma=" gamma
+	print "epsilon=" epsilon
+	print "power=" epsilon * gamma
+
 }
