@@ -14,8 +14,8 @@ END {
 			epsilon += lshift(1, NF-i)
 		else
 			gamma += lshift(1, NF-i)
-
 	}
+
 	print "gamma=" gamma
 	print "epsilon=" epsilon
 	print "power=" epsilon * gamma
