@@ -129,6 +129,7 @@ fn sum_board(board: &Vec<Vec<Option<u32>>>) -> u32 {
         .sum()
 }
 
+/// https://stackoverflow.com/a/64499219/2977344
 fn transpose<T>(v: Vec<Vec<T>>) -> Vec<Vec<T>> {
     assert!(!v.is_empty());
     let len = v[0].len();
