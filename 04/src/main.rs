@@ -60,6 +60,8 @@ fn run(i: &str) {
 
 /// mutate
 fn draw(boards: &mut Vec<Vec<Vec<Option<u32>>>>, draw: u32) {
+    let mut to_remove = Vec::new();
+
     for (b, board) in boards.iter_mut().enumerate() {
         for line in board.iter_mut() {
             for num in line.iter_mut() {
@@ -68,8 +70,17 @@ fn draw(boards: &mut Vec<Vec<Vec<Option<u32>>>>, draw: u32) {
                 }
             }
         }
-        test_complete(&board, draw, b);
+        if test_complete(&board, draw, b).is_some() {
+            to_remove.push(b);
+        }
     }
+
+    to_remove
+        .iter()
+        .for_each(|b| {
+            boards.remove(*b);
+            ()
+        });
 }
 
 fn test_complete(board: &Vec<Vec<Option<u32>>>, draw: u32, b: usize) -> Option<u32> {
