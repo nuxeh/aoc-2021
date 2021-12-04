@@ -73,13 +73,17 @@ fn draw(boards: &mut Vec<Vec<Vec<Option<u32>>>>, draw: u32, complete: &mut Vec<u
                 }
             }
         }
-        if test_complete(&board, draw, b).is_some() {
+        if test_complete(&board, draw, b, complete).is_some() {
             complete.push(b);
         }
     }
 }
 
-fn test_complete(board: &Vec<Vec<Option<u32>>>, draw: u32, b: usize) -> Option<u32> {
+fn test_complete(board: &Vec<Vec<Option<u32>>>, draw: u32, b: usize, complete: &mut Vec<usize>) -> Option<u32> {
+    if complete.contains(&b) {
+        return None;
+    }
+
     for line in board.iter() {
         // check for complete rows
         let complete = line
@@ -106,7 +110,7 @@ fn test_complete(board: &Vec<Vec<Option<u32>>>, draw: u32, b: usize) -> Option<u
 
         if complete == 5 {
             let sum = sum_board(board);
-            println!("COMPLETE COL sum={} draw={} prod={} b={}", sum, draw, draw*sum,b);
+            println!("COMPLETE COL sum={} draw={} prod={} b={}", sum, draw, draw*sum, b);
             return Some(sum);
         }
 
