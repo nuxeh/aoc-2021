@@ -51,19 +51,20 @@ fn run(i: &str) {
     println!("boards=\n{:#?}", boards);
     println!("n_boards={}", boards.len());
 
+    let mut complete = Vec::new();
+
     seq
         .iter()
         .for_each(|d| {
             //println!("{:?}", boards);
             println!("n_boards={}", boards.len());
-            draw(&mut boards, d.clone());
+            println!("complete={:?}", complete);
+            draw(&mut boards, d.clone(), &mut complete);
         });
 }
 
 /// mutate
-fn draw(boards: &mut Vec<Vec<Vec<Option<u32>>>>, draw: u32) {
-    let mut to_remove = Vec::new();
-
+fn draw(boards: &mut Vec<Vec<Vec<Option<u32>>>>, draw: u32, complete: &mut Vec<usize>) {
     for (b, board) in boards.iter_mut().enumerate() {
         for line in board.iter_mut() {
             for num in line.iter_mut() {
@@ -73,16 +74,9 @@ fn draw(boards: &mut Vec<Vec<Vec<Option<u32>>>>, draw: u32) {
             }
         }
         if test_complete(&board, draw, b).is_some() {
-            to_remove.push(b);
+            complete.push(b);
         }
     }
-
-    to_remove
-        .iter()
-        .for_each(|b| {
-            boards.remove(*b);
-            ()
-        });
 }
 
 fn test_complete(board: &Vec<Vec<Option<u32>>>, draw: u32, b: usize) -> Option<u32> {
