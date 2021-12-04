@@ -15,5 +15,6 @@ fn main() {
 }
 
 fn run(i: &str) {
-
+    let seq: String = i.lines().take(1).collect();
+    println!("seq={}", seq);
 }
