@@ -62,9 +62,12 @@ fn pass(boards: &mut Vec<Vec<Vec<Option<u8>>>>, draw: u8) {
         for line in board.iter_mut() {
             for num in line.iter_mut() {
                 if num == &mut Some(draw) {
+                    // mutate
                     *num = None;
                 }
             }
+
+            // check for complete rows
             let complete = line
                 .iter()
                 .fold(0, |mut acc, n| {
@@ -72,8 +75,18 @@ fn pass(boards: &mut Vec<Vec<Vec<Option<u8>>>>, draw: u8) {
                     acc
                 });
             if complete == 5 {
-                println!("COMPLETE");
+                println!("COMPLETE ROW");
             }
         }
+            
+        // check for complete columns
+        let complete: Vec<u8> = board
+            .iter()
+            .fold(Vec::new(), |acc, l| {
+                l
+                    .iter()
+                    .enumerate()
+                    .for_each(
+            });
     }
 }
