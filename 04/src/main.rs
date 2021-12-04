@@ -1,4 +1,5 @@
 use aocf::Aoc;
+use regex::Regex;
 
 fn main() {
     let mut aoc = Aoc::new()
@@ -24,4 +25,16 @@ fn run(i: &str) {
         .collect();
 
     println!("seq={:?}", seq);
+
+    let i_boards: String = i
+        .lines()
+        .skip(2)
+        .join('\n')
+        .collect::<String>();
+    println!("{:?}", i_boards);
+
+    let re = Regex::new(r"\d\n").unwrap();
+    let boards_stripped: String = re.replace_all(&i_boards, "").to_string();
+
+    println!("boards=\n{}", boards_stripped);
 }
