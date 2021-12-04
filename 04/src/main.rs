@@ -1,5 +1,4 @@
 use aocf::Aoc;
-use regex::Regex;
 
 fn main() {
     let mut aoc = Aoc::new()
@@ -28,9 +27,25 @@ fn run(i: &str) {
 
     let boards_stripped = i
         .replace("\n\n", "*")
-        .replace("\n", "")
+        .replace("\n", " ")
         .replace("  ", " ")
         .replace("*", "\n");
 
     println!("boards=\n{}", boards_stripped);
+
+    let boards: Vec<Vec<Vec<u8>>> = boards_stripped
+        .lines()
+        .skip(1) // sequence list
+        .map(|l| l
+            .split(" ")
+            .map(|b| b.parse().unwrap_or(255))
+            .collect::<Vec<u8>>()
+            .chunks(5)
+            .map(|n| n.into())
+            .collect()
+        )
+        .collect();
+
+    println!("boards=\n{:#?}", boards);
+
 }
