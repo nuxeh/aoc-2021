@@ -53,40 +53,54 @@ fn run(i: &str) {
         .iter()
         .for_each(|d| {
             println!("{:?}", boards);
-            pass(&mut boards, d.clone())
+            draw(&mut boards, d.clone());
         });
 }
 
-fn pass(boards: &mut Vec<Vec<Vec<Option<u8>>>>, draw: u8) {
+/// mutate
+fn draw(boards: &mut Vec<Vec<Vec<Option<u8>>>>, draw: u8) {
     for board in boards.iter_mut() {
         for line in board.iter_mut() {
             for num in line.iter_mut() {
                 if num == &mut Some(draw) {
-                    // mutate
                     *num = None;
                 }
             }
-
-            // check for complete rows
-            let complete = line
-                .iter()
-                .fold(0, |mut acc, n| {
-                    if n == &None { acc += 1 }
-                    acc
-                });
-            if complete == 5 {
-                println!("COMPLETE ROW");
-            }
         }
-            
-        // check for complete columns
-        let complete: Vec<u8> = board
-            .iter()
-            .fold(Vec::new(), |acc, l| {
-                l
-                    .iter()
-                    .enumerate()
-                    .for_each(
-            });
+        test_complete(&board);
     }
+}
+
+fn test_complete(board: &Vec<Vec<Option<u8>>>) -> Option<u32> {
+    for line in board.iter() {
+        // check for complete rows
+        let complete = line
+            .iter()
+            .fold(0, |mut acc, n| {
+                if n == &None { acc += 1 }
+                acc
+            });
+
+        if complete == 5 {
+            println!("COMPLETE ROW sum={}", sum_board(board));
+        }
+    }
+        /*
+        for num in line.iter_mut() {
+    // check for complete columns
+    let complete: Vec<u8> = board
+        .iter()
+        .fold(Vec::new(), |acc, l| {
+            l
+                .iter()
+                .enumerate()
+                .for_each(
+        });
+        */
+
+    Some(255)
+}
+
+fn sum_board(board: &Vec<Vec<Option<u8>>>) -> u32 {
+    255
 }
