@@ -49,13 +49,19 @@ fn run(i: &str) {
 
     println!("boards=\n{:#?}", boards);
 
+    seq
+        .iter()
+        .for_each(|d| {
+            println!("{:?}", boards);
+            pass(&mut boards, d.clone())
+        });
 }
 
 fn pass(boards: &mut Vec<Vec<Vec<Option<u8>>>>, draw: u8) {
     for board in boards.iter_mut() {
         for line in board.iter_mut() {
             for num in line.iter_mut() {
-                if let Some(draw) = num {
+                if num == &mut Some(draw) {
                     *num = None;
                 }
             }
