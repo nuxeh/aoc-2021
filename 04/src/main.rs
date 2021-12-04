@@ -1,4 +1,5 @@
 use aocf::Aoc;
+use itertools::izip;
 
 fn main() {
     let mut aoc = Aoc::new()
@@ -87,22 +88,40 @@ fn test_complete(board: &Vec<Vec<Option<u8>>>) -> Option<u32> {
             return Some(sum);
         }
     }
-        /*
-        for num in line.iter_mut() {
-    // check for complete columns
-    let complete: Vec<u8> = board
-        .iter()
-        .fold(Vec::new(), |acc, l| {
-            l
-                .iter()
-                .enumerate()
-                .for_each(
-        });
-        */
+
+    for col in transpose(board.clone()) {
+        let complete = col
+            .iter()
+            .fold(0, |mut acc, n| {
+                if n == &None { acc += 1 }
+                acc
+            });
+
+        if complete == 5 {
+            let sum = sum_board(board);
+            println!("COMPLETE COL sum={}", sum);
+            return Some(sum);
+        }
+
+    }
 
     None
 }
 
 fn sum_board(board: &Vec<Vec<Option<u8>>>) -> u32 {
     255
+}
+
+fn transpose<T>(v: Vec<Vec<T>>) -> Vec<Vec<T>> {
+    assert!(!v.is_empty());
+    let len = v[0].len();
+    let mut iters: Vec<_> = v.into_iter().map(|n| n.into_iter()).collect();
+    (0..len)
+        .map(|_| {
+            iters
+                .iter_mut()
+                .map(|n| n.next().unwrap())
+                .collect::<Vec<T>>()
+        })
+        .collect()
 }
