@@ -16,7 +16,7 @@ fn main() {
 }
 
 fn run(i: &str) {
-    let seq: Vec<u8> = i
+    let seq: Vec<u32> = i
         .lines()
         .take(1)
         .collect::<String>()
@@ -34,14 +34,14 @@ fn run(i: &str) {
 
     println!("boards=\n{}", boards_stripped);
 
-    let mut boards: Vec<Vec<Vec<Option<u8>>>> = boards_stripped
+    let mut boards: Vec<Vec<Vec<Option<u32>>>> = boards_stripped
         .lines()
         .skip(1) // sequence list
         .map(|l| l
             .split(" ")
             .filter(|n| !n.is_empty()) // if start of row is single digit
             .map(|n| Some(n.parse().unwrap()))
-            .collect::<Vec<Option<u8>>>()
+            .collect::<Vec<Option<u32>>>()
             .chunks(5)
             .map(|r| r.into())
             .collect()
@@ -59,7 +59,7 @@ fn run(i: &str) {
 }
 
 /// mutate
-fn draw(boards: &mut Vec<Vec<Vec<Option<u8>>>>, draw: u8) {
+fn draw(boards: &mut Vec<Vec<Vec<Option<u32>>>>, draw: u32) {
     for board in boards.iter_mut() {
         for line in board.iter_mut() {
             for num in line.iter_mut() {
@@ -72,7 +72,7 @@ fn draw(boards: &mut Vec<Vec<Vec<Option<u8>>>>, draw: u8) {
     }
 }
 
-fn test_complete(board: &Vec<Vec<Option<u8>>>) -> Option<u32> {
+fn test_complete(board: &Vec<Vec<Option<u32>>>) -> Option<u32> {
     for line in board.iter() {
         // check for complete rows
         let complete = line
@@ -108,8 +108,16 @@ fn test_complete(board: &Vec<Vec<Option<u8>>>) -> Option<u32> {
     None
 }
 
-fn sum_board(board: &Vec<Vec<Option<u8>>>) -> u32 {
-    255
+fn sum_board(board: &Vec<Vec<Option<u32>>>) -> u32 {
+    board
+        .iter()
+        .map(|l| l
+            .iter()
+            .filter(|n| n.is_some())
+            .map(|n| n.unwrap())
+            .sum::<u32>())
+        .sum()
+
 }
 
 fn transpose<T>(v: Vec<Vec<T>>) -> Vec<Vec<T>> {
