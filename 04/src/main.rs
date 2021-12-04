@@ -1,5 +1,4 @@
 use aocf::Aoc;
-use itertools::izip;
 
 fn main() {
     let mut aoc = Aoc::new()
