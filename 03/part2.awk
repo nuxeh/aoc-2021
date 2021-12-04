@@ -2,6 +2,7 @@ BEGIN {
 	FS=""
 	b=0
 	print "pass=" pass > "/dev/stderr"
+	print "stage=" stage > "/dev/stderr"
 }
 
 {
@@ -14,9 +15,14 @@ BEGIN {
 }
 
 END {
-	print b " / " NR/2 > "/dev/stderr"
-	if (b >= NR/2)
-		for (i in ones) print ones[i]
-	else
-		for (i in zeroes) print zeroes[i]
+	#print "ones=" b "/" NR/2 > "/dev/stderr"
+	if (stage == 0) {
+		if      (b == NR/2) for (i in zeroes) print ones[i]
+		else if (b >= NR/2) for (i in ones) print ones[i]
+		else                for (i in zeroes) print zeroes[i]
+	} else {
+		if      (b == NR/2) for (i in zeroes) print zeroes[i]
+		else if (b <= NR/2) for (i in ones) print ones[i]
+		else                for (i in zeroes) print zeroes[i]
+	}
 }
