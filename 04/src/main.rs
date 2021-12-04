@@ -65,6 +65,15 @@ fn pass(boards: &mut Vec<Vec<Vec<Option<u8>>>>, draw: u8) {
                     *num = None;
                 }
             }
+            let complete = line
+                .iter()
+                .fold(0, |mut acc, n| {
+                    if n == &None { acc += 1 }
+                    acc
+                });
+            if complete == 5 {
+                println!("COMPLETE");
+            }
         }
     }
 }
