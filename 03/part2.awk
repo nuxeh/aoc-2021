@@ -1,6 +1,7 @@
 BEGIN {
 	FS=""
 	b=0
+	print "pass=" pass > "/dev/stderr"
 }
 
 {
@@ -13,7 +14,8 @@ BEGIN {
 }
 
 END {
-	if (b > NF/2)
+	print b " / " NR/2 > "/dev/stderr"
+	if (b >= NR/2)
 		for (i in ones) print ones[i]
 	else
 		for (i in zeroes) print zeroes[i]
