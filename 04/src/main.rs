@@ -15,6 +15,13 @@ fn main() {
 }
 
 fn run(i: &str) {
-    let seq: String = i.lines().take(1).collect();
-    println!("seq={}", seq);
+    let seq: Vec<u8> = i
+        .lines()
+        .take(1)
+        .collect::<String>()
+        .split(",")
+        .map(|i| i.parse().unwrap())
+        .collect();
+
+    println!("seq={:?}", seq);
 }
