@@ -60,7 +60,7 @@ fn run(i: &str) {
 
 /// mutate
 fn draw(boards: &mut Vec<Vec<Vec<Option<u32>>>>, draw: u32) {
-    for board in boards.iter_mut() {
+    for (b, board) in boards.iter_mut().enumerate() {
         for line in board.iter_mut() {
             for num in line.iter_mut() {
                 if num == &mut Some(draw) {
@@ -68,11 +68,11 @@ fn draw(boards: &mut Vec<Vec<Vec<Option<u32>>>>, draw: u32) {
                 }
             }
         }
-        test_complete(&board, draw);
+        test_complete(&board, draw, b);
     }
 }
 
-fn test_complete(board: &Vec<Vec<Option<u32>>>, draw: u32) -> Option<u32> {
+fn test_complete(board: &Vec<Vec<Option<u32>>>, draw: u32, b: usize) -> Option<u32> {
     for line in board.iter() {
         // check for complete rows
         let complete = line
@@ -84,7 +84,7 @@ fn test_complete(board: &Vec<Vec<Option<u32>>>, draw: u32) -> Option<u32> {
 
         if complete == 5 {
             let sum = sum_board(board);
-            println!("COMPLETE ROW sum={} draw={} prod={}", sum, draw, draw*sum);
+            println!("COMPLETE ROW sum={} draw={} prod={} b={}", sum, draw, draw*sum, b);
             return Some(sum);
         }
     }
@@ -99,7 +99,7 @@ fn test_complete(board: &Vec<Vec<Option<u32>>>, draw: u32) -> Option<u32> {
 
         if complete == 5 {
             let sum = sum_board(board);
-            println!("COMPLETE COL sum={} draw={} prod={}", sum, draw, draw*sum);
+            println!("COMPLETE COL sum={} draw={} prod={} b={}", sum, draw, draw*sum,b);
             return Some(sum);
         }
 
