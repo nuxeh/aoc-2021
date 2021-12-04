@@ -1,25 +1,20 @@
 BEGIN {
 	FS=""
-	pass=0
-	regexp="1\\.\\*"
+	b=0
 }
 
-$0 ~ regexp {
-	print $0
-	for (i=1; i<=NF; i++) {
-		b[i] += $i
-	}
+{
+	b += $pass
+
+	if ($pass == 0)
+		zeroes[z++] = $0
+	else
+		ones[o++] = $0
 }
 
 END {
-	for (i=1; i<=NF; i++) {
-		if (b[i]<NR/2)
-			epsilon += lshift(1, NF-i)
-		else
-			gamma += lshift(1, NF-i)
-	}
-
-	print "gamma=" gamma
-	print "epsilon=" epsilon
-	print "power=" epsilon * gamma
+	if (b > NF/2)
+		for (i in ones) print ones[i]
+	else
+		for (i in zeroes) print zeroes[i]
 }
