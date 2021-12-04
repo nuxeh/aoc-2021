@@ -27,7 +27,9 @@ fn run(i: &str) {
     println!("seq={:?}", seq);
 
     let re = Regex::new(r"\d\n").unwrap();
+    let re_spaces = Regex::new(r"\s+").unwrap();
     let boards_stripped: String = re.replace_all(i, "").to_string();
+    let boards_stripped: String = re_spaces.replace_all(&boards_stripped, " ").to_string();
 
     println!("boards=\n{}", boards_stripped);
 }
