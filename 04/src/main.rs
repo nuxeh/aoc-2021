@@ -53,7 +53,7 @@ fn run(i: &str) {
     seq
         .iter()
         .for_each(|d| {
-            println!("{:?}", boards);
+            //println!("{:?}", boards);
             draw(&mut boards, d.clone());
         });
 }
@@ -117,7 +117,6 @@ fn sum_board(board: &Vec<Vec<Option<u32>>>) -> u32 {
             .map(|n| n.unwrap())
             .sum::<u32>())
         .sum()
-
 }
 
 fn transpose<T>(v: Vec<Vec<T>>) -> Vec<Vec<T>> {
