@@ -49,11 +49,13 @@ fn run(i: &str) {
         .collect();
 
     println!("boards=\n{:#?}", boards);
+    println!("n_boards={}", boards.len());
 
     seq
         .iter()
         .for_each(|d| {
             //println!("{:?}", boards);
+            println!("n_boards={}", boards.len());
             draw(&mut boards, d.clone());
         });
 }
