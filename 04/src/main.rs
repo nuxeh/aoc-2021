@@ -33,7 +33,7 @@ fn run(i: &str) {
 
     println!("boards=\n{}", boards_stripped);
 
-    let boards: Vec<Vec<Vec<Option<u8>>>> = boards_stripped
+    let mut boards: Vec<Vec<Vec<Option<u8>>>> = boards_stripped
         .lines()
         .skip(1) // sequence list
         .map(|l| l
@@ -49,12 +49,16 @@ fn run(i: &str) {
 
     println!("boards=\n{:#?}", boards);
 
-    boards
-        .iter_mut(|board| {
-            board.iter_mut(|line| {
-                line.iter_mut(|col| {
+}
 
-                })
-            })
-        })
+fn pass(boards: &mut Vec<Vec<Vec<Option<u8>>>>, draw: u8) {
+    for board in boards.iter_mut() {
+        for line in board.iter_mut() {
+            for num in line.iter_mut() {
+                if let Some(draw) = num {
+                    *num = None;
+                }
+            }
+        }
+    }
 }
