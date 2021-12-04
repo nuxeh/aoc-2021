@@ -34,7 +34,7 @@ while test (cat out2 | wc -l) -gt 1
 	cat out2
 end
 
-set co2_scrubber_rating (echo "obase=10; ibase=2; (cat out2)" | bc)
+set co2_scrubber_rating (cat out2)
 
 echo oxygen_generator_rating=$oxygen_generator_rating
 echo co2_scrubber_rating=$co2_scrubber_rating
