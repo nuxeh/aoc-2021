@@ -38,8 +38,7 @@ fn run(i: &str) {
         .skip(1) // sequence list
         .map(|l| l
             .split(" ")
-            .filter(|b| !b.is_empty())
-            .map(|b| {println!("{:?}", b); b})
+            .filter(|b| !b.is_empty()) // if start of row is single digit
             .map(|b| b.parse().unwrap())
             .collect::<Vec<u8>>()
             .chunks(5)
