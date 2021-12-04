@@ -82,7 +82,9 @@ fn test_complete(board: &Vec<Vec<Option<u8>>>) -> Option<u32> {
             });
 
         if complete == 5 {
-            println!("COMPLETE ROW sum={}", sum_board(board));
+            let sum = sum_board(board);
+            println!("COMPLETE ROW sum={}", sum);
+            return Some(sum);
         }
     }
         /*
@@ -98,7 +100,7 @@ fn test_complete(board: &Vec<Vec<Option<u8>>>) -> Option<u32> {
         });
         */
 
-    Some(255)
+    None
 }
 
 fn sum_board(board: &Vec<Vec<Option<u8>>>) -> u32 {
