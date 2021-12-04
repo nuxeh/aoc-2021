@@ -33,20 +33,28 @@ fn run(i: &str) {
 
     println!("boards=\n{}", boards_stripped);
 
-    let boards: Vec<Vec<Vec<u8>>> = boards_stripped
+    let boards: Vec<Vec<Vec<Option<u8>>>> = boards_stripped
         .lines()
         .skip(1) // sequence list
         .map(|l| l
             .split(" ")
-            .filter(|b| !b.is_empty()) // if start of row is single digit
-            .map(|b| b.parse().unwrap())
-            .collect::<Vec<u8>>()
+            .filter(|n| !n.is_empty()) // if start of row is single digit
+            .map(|n| Some(n.parse().unwrap()))
+            .collect::<Vec<Option<u8>>>()
             .chunks(5)
-            .map(|n| n.into())
+            .map(|r| r.into())
             .collect()
         )
         .collect();
 
     println!("boards=\n{:#?}", boards);
 
+    boards
+        .iter_mut(|board| {
+            board.iter_mut(|line| {
+                line.iter_mut(|col| {
+
+                })
+            })
+        })
 }
