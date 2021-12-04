@@ -28,7 +28,8 @@ fn run(i: &str) {
     let boards_stripped = i
         .replace("\n\n", "*")
         .replace("\n", " ")
-        .replace("  ", " ")
+        .replace("  ", ",")
+        .replace(" ", ",")
         .replace("*", "\n");
 
     println!("boards=\n{}", boards_stripped);
@@ -38,7 +39,8 @@ fn run(i: &str) {
         .skip(1) // sequence list
         .map(|l| l
             .split(" ")
-            .map(|b| b.parse().unwrap_or(255))
+            .map(|b| {println!("{:?}", b); b})
+            .map(|b| b.parse().unwrap())
             .collect::<Vec<u8>>()
             .chunks(5)
             .map(|n| n.into())
