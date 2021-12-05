@@ -1,7 +1,7 @@
 use aocf::Aoc;
 use std::collections::HashMap;
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq, Hash)]
 struct Point {
     x: i32,
     y: i32,
@@ -67,6 +67,8 @@ fn main() {
 }
 
 fn run(i: &str) {
+    let points: HashMap<Point, usize> = HashMap::new();
+
     let lines: Vec<Line> = i
         .lines()
         .map(|l| Line::from_str(l))
@@ -77,5 +79,14 @@ fn run(i: &str) {
     for line in lines {
         println!("{:?}", line);
         println!("{:?}", line.cast());
+
+        line
+            .cast()
+            .for_each(|point| {
+                match points.get(point) {
+                    Some(count) => points.insert(*point, count+1),
+                    None => points.insert(*point, 1),
+                };
+            });
     }
 } 
