@@ -27,11 +27,6 @@ impl Line {
         Self { start, end }
     }
 
-// Line { start: Point { x: 9, y: 4 }, end: Point { x: 3, y: 4 } }
-// dx=-6 dy=0
-// n=6 ix=1 iy=0
-// [Point { x: 9, y: 4 }, Point { x: 10, y: 4 }, Point { x: 11, y: 4 }, Point { x: 12, y: 4 }, Point { x: 13, y: 4 }, Point { x: 14, y: 4 }, Point { x: 15, y: 4 }]
-
     fn cast(self) -> Vec<Point> {
         let dx = self.end.x - self.start.x;
         let dy = self.end.y - self.start.y;
@@ -47,8 +42,8 @@ impl Line {
             (dx.abs(), dx/dx, dy/dx)
         };
 
-        if (dx > 0) { ix = ix.abs() } else { ix = -1 * ix.abs() }
-        if (dy > 0) { iy = iy.abs() } else { iy = -1 * iy.abs() }
+        if dx > 0 { ix = ix.abs() } else { ix = -1 * ix.abs() }
+        if dy > 0 { iy = iy.abs() } else { iy = -1 * iy.abs() }
 
         println!("n={} ix={} iy={}", n, ix, iy);
 
@@ -109,3 +104,20 @@ fn run(i: &str) {
 
     println!("gt2={}", gt2);
 } 
+
+/*
+  --> src/main.rs:97:32
+   |
+96 |             match points.get(&point) {
+   |                   ------ immutable borrow occurs here
+97 |                 Some(count) => points.insert(point, count+1),
+   |                                ^^^^^^               ----- immutable borrow later used here
+   |                                |
+   |                                mutable borrow occurs here
+   |
+   = note: `#[warn(mutable_borrow_reservation_conflict)]` on by default
+   = warning: this borrowing pattern was not meant to be accepted, and may become a hard error in the future
+   = note: for more information, see issue #59159 <https://github.com/rust-lang/rust/issues/59159>
+
+warning: `aoc0521` (bin "aoc0521") generated 3 warnings
+ */
