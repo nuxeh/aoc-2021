@@ -1,5 +1,5 @@
-
 use aocf::Aoc;
+use std::collections::HashMap;
 
 #[derive(Debug)]
 struct Point {
@@ -26,6 +26,20 @@ impl Line {
           end: Point { x: c[2], y: c[3] },
       }
   }
+
+  fn cast(self) -> Vec<Point> {
+      let dx = self.end.x - self.start.x;
+      let dy = self.end.y - self.start.y;
+
+      (self.start.x..self.end.x)
+          .map(|x| {
+              Point {
+                  x: x,
+                  y: self.start.y + (dy * ((x - self.start.x) / dx)),
+              }
+          })
+          .collect()
+  }
 }
 
 fn main() {
@@ -38,15 +52,20 @@ fn main() {
     let input = aoc.get_input(false);
 
     if let Ok(i) = input {
-        parse(&i);
+        run(&i);
     }
 }
 
-fn parse(i: &str) {
+fn run(i: &str) {
     let lines: Vec<Line> = i
         .lines()
         .map(|l| Line::from_str(l))
         .collect();
 
     println!("{:#?}", lines);
+
+    for line in lines {
+        println!("{:?}", line);
+        println!("{:?}", line.cast());
+    }
 } 
