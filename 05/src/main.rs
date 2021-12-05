@@ -31,11 +31,15 @@ impl Line {
       let dx = self.end.x - self.start.x;
       let dy = self.end.y - self.start.y;
 
-      let (n, ix, iy) = if dy > dx {
-          (dy, dx/dy, dy/dy)
+      println!("dx={} dy={}", dx, dy);
+
+      let (n, ix, iy) = if dy.abs() > dx.abs() {
+          (dy.abs(), dx/dy, dy/dy)
       } else {
-          (dx, dx/dx, dy/dx)
+          (dx.abs(), dx/dx, dy/dx)
       };
+
+      println!("n={} ix={} iy={}", n, ix, iy);
 
       (0..=n)
           .map(|n| {
