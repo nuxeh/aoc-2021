@@ -3,8 +3,8 @@ use std::collections::HashMap;
 
 #[derive(Debug)]
 struct Point {
-    x: u32,
-    y: u32,
+    x: i32,
+    y: i32,
 }
 
 #[derive(Debug)]
@@ -15,23 +15,29 @@ struct Line {
 
 impl Line {
   fn from_str(i: &str) -> Self {
-      let c: Vec<u32> = i
+      let c: Vec<i32> = i
           .replace(" -> ", ",")
           .split(",")
           .map(|n| n.parse().unwrap())
           .collect();
 
-      Self {
-          start: Point { x: c[0], y: c[1] },
-          end: Point { x: c[2], y: c[3] },
-      }
+      let p1 = Point { x: c[0], y: c[1] };
+      let p2 =  Point { x: c[2], y: c[3] };
+
+      let (start, end) = if p1.x > p2.x {
+          (p2, p1)
+      } else {
+          (p1, p2)
+      };
+
+      Self { start, end }
   }
 
   fn cast(self) -> Vec<Point> {
       let dx = self.end.x - self.start.x;
       let dy = self.end.y - self.start.y;
 
-      (self.start.x..self.end.x)
+      (self.start.x..=self.end.x)
           .map(|x| {
               Point {
                   x: x,
