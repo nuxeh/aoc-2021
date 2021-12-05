@@ -21,14 +21,8 @@ impl Line {
           .map(|n| n.parse().unwrap())
           .collect();
 
-      let p1 = Point { x: c[0], y: c[1] };
-      let p2 =  Point { x: c[2], y: c[3] };
-
-      let (start, end) = if p1.x > p2.x {
-          (p2, p1)
-      } else {
-          (p1, p2)
-      };
+      let start = Point { x: c[0], y: c[1] };
+      let end =  Point { x: c[2], y: c[3] };
 
       Self { start, end }
   }
@@ -37,11 +31,17 @@ impl Line {
       let dx = self.end.x - self.start.x;
       let dy = self.end.y - self.start.y;
 
-      (self.start.x..=self.end.x)
-          .map(|x| {
+      let (n, ix, iy) = if dy > dx {
+          (dy, dx/dy, dy/dy)
+      } else {
+          (dx, dx/dx, dy/dx)
+      };
+
+      (0..=n)
+          .map(|n| {
               Point {
-                  x: x,
-                  y: self.start.y + (dy * ((x - self.start.x) / dx)),
+                  x: self.start.x + (n * ix),
+                  y: self.start.y + (n * iy),
               }
           })
           .collect()
