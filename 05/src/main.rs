@@ -27,6 +27,11 @@ impl Line {
       Self { start, end }
   }
 
+// Line { start: Point { x: 9, y: 4 }, end: Point { x: 3, y: 4 } }
+// dx=-6 dy=0
+// n=6 ix=1 iy=0
+// [Point { x: 9, y: 4 }, Point { x: 10, y: 4 }, Point { x: 11, y: 4 }, Point { x: 12, y: 4 }, Point { x: 13, y: 4 }, Point { x: 14, y: 4 }, Point { x: 15, y: 4 }]
+
   fn cast(self) -> Vec<Point> {
       let dx = self.end.x - self.start.x;
       let dy = self.end.y - self.start.y;
@@ -37,10 +42,19 @@ impl Line {
       if !(dy == 0 || dx == 0) { return vec![]; }
 
       let (n, ix, iy) = if dy.abs() > dx.abs() {
-          (dy.abs(), dx/dy, dy/dy)
+          if dx < 0 {
+             (dy.abs(), -1*dx/dy, dy/dy)
+          } else {
+             (dy.abs(), dx/dy, dy/dy)
+          }
       } else {
-          (dx.abs(), dx/dx, dy/dx)
+          if dx < 0 {
+             (dx.abs(), -1*dx/dx, dy/dx)
+          } else {
+             (dx.abs(), dx/dx, dy/dx)
+          }
       };
+
 
       println!("n={} ix={} iy={}", n, ix, iy);
 
@@ -82,7 +96,7 @@ fn run(i: &str) {
     for line in lines {
         println!("{:?}", line);
         let line_points = line.cast();
-        println!("{:?}", line.cast());
+        println!("{:?}", line_points);
 
         for point in line_points {
             match points.get(&point) {
