@@ -41,20 +41,14 @@ impl Line {
       // only horz
       if !(dy == 0 || dx == 0) { return vec![]; }
 
-      let (n, ix, iy) = if dy.abs() > dx.abs() {
-          if dx < 0 {
-             (dy.abs(), -1*dx/dy, dy/dy)
-          } else {
-             (dy.abs(), dx/dy, dy/dy)
-          }
+      let (n, mut ix, mut iy) = if dy.abs() > dx.abs() {
+          (dy.abs(), dx/dy, dy/dy)
       } else {
-          if dx < 0 {
-             (dx.abs(), -1*dx/dx, dy/dx)
-          } else {
-             (dx.abs(), dx/dx, dy/dx)
-          }
+          (dx.abs(), dx/dx, dy/dx)
       };
 
+      if dx < 0 { ix *= -1 }
+      if dy < 0 { iy *= -1 }
 
       println!("n={} ix={} iy={}", n, ix, iy);
 
