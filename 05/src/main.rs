@@ -14,53 +14,58 @@ struct Line {
 }
 
 impl Line {
-  fn from_str(i: &str) -> Self {
-      let c: Vec<i32> = i
-          .replace(" -> ", ",")
-          .split(",")
-          .map(|n| n.parse().unwrap())
-          .collect();
+    fn from_str(i: &str) -> Self {
+        let c: Vec<i32> = i
+            .replace(" -> ", ",")
+            .split(",")
+            .map(|n| n.parse().unwrap())
+            .collect();
 
-      let start = Point { x: c[0], y: c[1] };
-      let end =  Point { x: c[2], y: c[3] };
+        let start = Point { x: c[0], y: c[1] };
+        let end =  Point { x: c[2], y: c[3] };
 
-      Self { start, end }
-  }
+        Self { start, end }
+    }
 
 // Line { start: Point { x: 9, y: 4 }, end: Point { x: 3, y: 4 } }
 // dx=-6 dy=0
 // n=6 ix=1 iy=0
 // [Point { x: 9, y: 4 }, Point { x: 10, y: 4 }, Point { x: 11, y: 4 }, Point { x: 12, y: 4 }, Point { x: 13, y: 4 }, Point { x: 14, y: 4 }, Point { x: 15, y: 4 }]
 
-  fn cast(self) -> Vec<Point> {
-      let dx = self.end.x - self.start.x;
-      let dy = self.end.y - self.start.y;
+    fn cast(self) -> Vec<Point> {
+        let dx = self.end.x - self.start.x;
+        let dy = self.end.y - self.start.y;
 
-      println!("dx={} dy={}", dx, dy);
+        println!("dx={} dy={}", dx, dy);
 
-      // only horz
-      //if !(dy == 0 || dx == 0) { return vec![]; }
+        // only horz
+        //if !(dy == 0 || dx == 0) { return vec![]; }
 
-      let (n, mut ix, mut iy) = if dy.abs() > dx.abs() {
-          (dy.abs(), dx/dy, dy/dy)
-      } else {
-          (dx.abs(), dx/dx, dy/dx)
-      };
+        let (n, mut ix, mut iy) = if dy.abs() > dx.abs() {
+            (dy.abs(), dx/dy, dy/dy)
+        } else {
+            (dx.abs(), dx/dx, dy/dx)
+        };
 
-      if dx < 0 { ix *= -1 } else { ix = ix.abs() }
-      if dy < 0 { iy *= -1 } else { iy = iy.abs() }
+        match (dx < 0, ix < 0, dy < 0, iy < 0) {
+            (true, false, _, _) => ix *= -1,
+            (false, true, _, _) => ix *= -1,
+            (_, _, true, false) => iy *= -1,
+            (_, _, false, true) => iy *= -1,
+            _ => (),
+        }
 
-      println!("n={} ix={} iy={}", n, ix, iy);
+        println!("n={} ix={} iy={}", n, ix, iy);
 
-      (0..=n)
-          .map(|n| {
-              Point {
-                  x: self.start.x + (n * ix),
-                  y: self.start.y + (n * iy),
-              }
-          })
-          .collect()
-  }
+        (0..=n)
+            .map(|n| {
+                Point {
+                    x: self.start.x + (n * ix),
+                    y: self.start.y + (n * iy),
+                }
+            })
+            .collect()
+    }
 }
 
 fn main() {
