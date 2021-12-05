@@ -67,7 +67,7 @@ fn main() {
 }
 
 fn run(i: &str) {
-    let points: HashMap<Point, usize> = HashMap::new();
+    let mut points: HashMap<Point, usize> = HashMap::new();
 
     let lines: Vec<Line> = i
         .lines()
@@ -78,15 +78,15 @@ fn run(i: &str) {
 
     for line in lines {
         println!("{:?}", line);
-        println!("{:?}", line.cast());
+        //println!("{:?}", line.cast());
 
-        line
-            .cast()
-            .for_each(|point| {
-                match points.get(point) {
-                    Some(count) => points.insert(*point, count+1),
-                    None => points.insert(*point, 1),
-                };
-            });
+        for point in line.cast() {
+            match points.get(&point) {
+                Some(count) => points.insert(point, count+1),
+                None => points.insert(point, 1),
+            };
+        };
     }
+
+    println!("{:?}", points);
 } 
