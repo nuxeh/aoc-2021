@@ -118,6 +118,4 @@ fn run(i: &str) {
    = note: `#[warn(mutable_borrow_reservation_conflict)]` on by default
    = warning: this borrowing pattern was not meant to be accepted, and may become a hard error in the future
    = note: for more information, see issue #59159 <https://github.com/rust-lang/rust/issues/59159>
-
-warning: `aoc0521` (bin "aoc0521") generated 3 warnings
  */
