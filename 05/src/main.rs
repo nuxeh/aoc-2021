@@ -1,13 +1,13 @@
 use aocf::Aoc;
 use std::collections::HashMap;
 
-#[derive(Debug, PartialEq, Eq, Hash)]
+#[derive(Debug, PartialEq, Eq, Hash, Copy, Clone)]
 struct Point {
     x: i32,
     y: i32,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Copy, Clone)]
 struct Line {
     start: Point,
     end: Point,
@@ -32,6 +32,9 @@ impl Line {
       let dy = self.end.y - self.start.y;
 
       println!("dx={} dy={}", dx, dy);
+
+      // only horz
+      if !(dy == 0 || dx == 0) { return vec![]; }
 
       let (n, ix, iy) = if dy.abs() > dx.abs() {
           (dy.abs(), dx/dy, dy/dy)
@@ -78,9 +81,10 @@ fn run(i: &str) {
 
     for line in lines {
         println!("{:?}", line);
-        //println!("{:?}", line.cast());
+        let line_points = line.cast();
+        println!("{:?}", line.cast());
 
-        for point in line.cast() {
+        for point in line_points {
             match points.get(&point) {
                 Some(count) => points.insert(point, count+1),
                 None => points.insert(point, 1),
@@ -88,5 +92,12 @@ fn run(i: &str) {
         };
     }
 
-    println!("{:?}", points);
+    println!("{:#?}", points);
+
+    let gt2 = points
+        .values()
+        .filter(|value| **value >= 2)
+        .count();
+
+    println!("gt2={}", gt2);
 } 
