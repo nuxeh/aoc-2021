@@ -47,13 +47,8 @@ impl Line {
             (dx.abs(), dx/dx, dy/dx)
         };
 
-        match (dx < 0, ix < 0, dy < 0, iy < 0) {
-            (true, false, _, _) => ix *= -1,
-            (false, true, _, _) => ix *= -1,
-            (_, _, true, false) => iy *= -1,
-            (_, _, false, true) => iy *= -1,
-            _ => (),
-        }
+        if (dx > 0) { ix = ix.abs() } else { ix = -1 * ix.abs() }
+        if (dy > 0) { iy = iy.abs() } else { iy = -1 * iy.abs() }
 
         println!("n={} ix={} iy={}", n, ix, iy);
 
