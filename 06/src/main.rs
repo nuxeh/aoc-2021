@@ -25,7 +25,7 @@ fn run(input: &str) {
 
     println!("{:?}", initial_state);
 
-    for day in 0..18 {
+    for day in 0..256 {
         let mut add = 0;
 
         initial_state = initial_state
@@ -44,7 +44,7 @@ fn run(input: &str) {
 
         (0..add).for_each(|_| initial_state.push(8));
 
-        println!("{:2} -> {:?}", day, initial_state);
+        //println!("{:2} -> {:?}", day, initial_state);
     }
 
     println!("{}", initial_state.iter().count());
