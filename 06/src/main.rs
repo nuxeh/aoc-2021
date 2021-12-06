@@ -25,7 +25,9 @@ fn run(input: &str) {
 
     println!("{:?}", initial_state);
 
-    for day in 0..256 {
+    let ipop: f64 = initial_state.iter().count() as f64;
+
+    for day in 0..80 {
         let mut add = 0;
 
         initial_state = initial_state
@@ -44,7 +46,11 @@ fn run(input: &str) {
 
         (0..add).for_each(|_| initial_state.push(8));
 
-        //println!("{:2} -> {:?}", day, initial_state);
+        let pop: f64 = initial_state.iter().count() as f64;
+        let k = (pop/ipop).ln() / day as f64;
+
+        //println!("{:2} (k={}) -> {:?}", day, k, initial_state);
+        println!("{:2} (k={})", day, k);
     }
 
     println!("{}", initial_state.iter().count());
