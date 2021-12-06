@@ -16,7 +16,7 @@ fn main() {
 }
 
 fn run(input: &str) {
-    let mut initial_state: Vec<u8> = input
+    let mut initial_state: Vec<i8> = input
         .trim()
         .split(",")
         .map(|f| f.parse())
@@ -31,16 +31,14 @@ fn run(input: &str) {
         initial_state = initial_state
             .iter()
             .map(|fish| {
-                if *fish > 0 {
-                    let mut newfish = *fish - 1;
-                    if newfish == 0 {
-                        add += 1;
-                        newfish = 6;
-                    }
-                    newfish
-                } else {
-                    *fish
+                let mut newfish = *fish - 1;
+
+                if newfish == -1 {
+                    add += 1;
+                    newfish = 6;
                 }
+
+                newfish
             })
             .collect();
 
