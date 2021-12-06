@@ -19,9 +19,7 @@ fn run(input: &str) {
     let initial_state: Vec<u8> = input
         .trim()
         .split(",")
-        .map(|f| {println!("{}", f); f})
         .map(|f| f.parse())
-        .map(|f| {println!("{:?}", f); f})
         .flatten()
         .collect();
 
