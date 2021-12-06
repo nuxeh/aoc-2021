@@ -16,7 +16,7 @@ fn main() {
 }
 
 fn run(input: &str) {
-    let initial_state: Vec<u8> = input
+    let mut initial_state: Vec<u8> = input
         .trim()
         .split(",")
         .map(|f| f.parse())
@@ -24,5 +24,30 @@ fn run(input: &str) {
         .collect();
 
     println!("{:?}", initial_state);
+
+    for day in 0..18 {
+        let mut add = 0;
+
+        initial_state = initial_state
+            .iter()
+            .map(|fish| {
+                if *fish > 0 {
+                    let newfish = *fish - 1;
+                    if newfish == 0 {
+                        add += 1
+                    }
+                    newfish
+                } else {
+                    *fish
+                }
+            })
+            .collect();
+
+        (0..add).for_each(|_| initial_state.push(6));
+
+        println!("{:2} -> {:?}", day, initial_state);
+    }
+
+    println!("{}", initial_state.iter().count());
 }
 
