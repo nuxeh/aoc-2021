@@ -38,4 +38,26 @@ fn run(i: &str) {
 
     println!("{:?}", costs);
     println!("min_fuel={:?}", costs.iter().min());
+
+    part2(&crabs, *max);
+}
+
+fn part2(crabs: &Vec<i32>, max: i32) {
+    let costs: Vec<_> = (0..=max)
+        .map(|pos| {
+            crabs
+                .iter()
+                .fold(0, |acc, c| acc + exp_dist((pos - c).abs()))
+        })
+        .collect();
+
+    println!("{:?}", costs);
+    println!("min_fuel={:?}", costs.iter().min());
+}
+
+fn exp_dist(x: i32) -> i32 {
+    match x {
+        0 | 1 => 1,
+        _ => exp_dist(x - 1) + x,
+    }
 }
