@@ -15,7 +15,7 @@ fn main() {
 }
 
 fn run(i: &str) {
-    let crabs: Vec<u8> = i
+    let crabs: Vec<u16> = i
         .trim()
         .split(",")
         .map(|c| c.parse())
@@ -23,4 +23,5 @@ fn run(i: &str) {
         .collect();
 
     println!("{:?}", crabs);
+    println!("n_crabs={}", crabs.iter().count());
 }
