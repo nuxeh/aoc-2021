@@ -24,4 +24,6 @@ fn run(i: &str) {
 
     println!("{:?}", crabs);
     println!("n_crabs={}", crabs.iter().count());
+    println!("max={:?}", crabs.iter().max());
+    println!("min={:?}", crabs.iter().min());
 }
