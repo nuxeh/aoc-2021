@@ -15,7 +15,7 @@ fn main() {
 }
 
 fn run(i: &str) {
-    let crabs: Vec<i16> = i
+    let crabs: Vec<i32> = i
         .trim()
         .split(",")
         .map(|c| c.parse())
@@ -37,4 +37,5 @@ fn run(i: &str) {
         .collect();
 
     println!("{:?}", costs);
+    println!("min_fuel={:?}", costs.iter().min());
 }
