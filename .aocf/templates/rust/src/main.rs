@@ -10,7 +10,9 @@ fn main() {
     let input = aoc.get_input(false);
 
     if let Ok(i) = input {
-        println!("{}", i);
+        run(&i);
     }
 }
 
+fn run(i: &str) {
+}
