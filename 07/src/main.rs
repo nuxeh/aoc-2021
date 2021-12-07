@@ -15,7 +15,7 @@ fn main() {
 }
 
 fn run(i: &str) {
-    let crabs: Vec<u16> = i
+    let crabs: Vec<i16> = i
         .trim()
         .split(",")
         .map(|c| c.parse())
@@ -24,6 +24,17 @@ fn run(i: &str) {
 
     println!("{:?}", crabs);
     println!("n_crabs={}", crabs.iter().count());
-    println!("max={:?}", crabs.iter().max());
+    let max = crabs.iter().max().unwrap();
+    println!("max={:?}", max);
     println!("min={:?}", crabs.iter().min());
+
+    let costs: Vec<_> = (0..=*max)
+        .map(|pos| {
+            crabs
+                .iter()
+                .fold(0, |acc, c| acc + (pos - c).abs())
+        })
+        .collect();
+
+    println!("{:?}", costs);
 }
