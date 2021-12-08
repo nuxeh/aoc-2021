@@ -1,4 +1,5 @@
 use aocf::Aoc;
+use std::collections::HashSet;
 
 fn main() {
     let mut aoc = Aoc::new()
@@ -75,18 +76,18 @@ fn get_segment(line: &str, n: usize) -> Vec<&str> {
         .collect()
 }
 
-fn analyse(line: &str) -> Vec<Vec<char>> {
-    let mut map: Vec<Vec<char>> = vec![vec![]; 10];
+fn analyse(line: &str) -> Vec<HashSet<char>> {
+    let mut map: Vec<HashSet<char>> = vec![HashSet::new(); 10];
 
     get_char(line, 2)
         .chars()
         .for_each(|c| {
-            map[0].push(c);
-            map[3].push(c);
-            map[4].push(c);
-            map[7].push(c);
-            map[8].push(c);
-            map[9].push(c);
+            map[0].insert(c);
+            map[3].insert(c);
+            map[4].insert(c);
+            map[7].insert(c);
+            map[8].insert(c);
+            map[9].insert(c);
         });
 
     map
