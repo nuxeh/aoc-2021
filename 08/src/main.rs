@@ -48,6 +48,34 @@ fn run(i: &str) {
 
     println!("{:#?}", outputs_1478.iter().count());
 
+    // Part 2
 
+    let map: Vec<Vec<char>> = vec![vec![]; 8];
+
+}
+
+fn get_char(i: &str, len: usize) -> &str {
+    get_char_map(i)
+        .iter()
+        .filter(|c| c.len() == len)
+        .flatten()
+        .nth(0)
+}
+
+fn get_char_map(i: &str) -> Vec<Vec<&str>> {
+    i
+        .trim()
+        .lines()
+        .map(|l| l.split(" | ").collect())
+        .map(|l: Vec<&str>| l.get(0))
+        .flatten()
+        .map(|l| l
+            .split(' ')
+        )
+        .flatten()
+        .collect()
+}
+
+fn get_vals() {
 
 }
