@@ -28,12 +28,26 @@ fn run(i: &str) {
 
     println!("{:#?}", lines);
 
-    let output_1478: Vec<&&str> = lines
+    let outputs: Vec<&&str> = lines
         .iter()
         .map(|l| l.get(1))
         .flatten()
         .collect();
 
-    println!("{:#?}", output_1478);
+    println!("{:#?}", outputs);
+
+    let outputs_1478: Vec<usize> = outputs
+        .iter()
+        .map(|l| l
+            .split(' ')
+            .map(|o| o.len())
+        )
+        .flatten()
+        .filter(|o| [2, 3, 4, 7].contains(o))
+        .collect();
+
+    println!("{:#?}", outputs_1478.iter().count());
+
+
 
 }
