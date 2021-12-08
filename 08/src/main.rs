@@ -52,30 +52,23 @@ fn run(i: &str) {
 
     let map: Vec<Vec<char>> = vec![vec![]; 8];
 
+    println!("{:?}", get_char("be cfbegad cbdgef fgaecd cgeb fdcge agebfd fecdb fabcd edb | fdgacbe cefdb cefbgd gcbe", 2));
+
 }
 
-fn get_char(i: &str, len: usize) -> &str {
-    get_char_map(i)
+fn get_char(line: &str, len: usize) -> &str {
+    get_segment(line, 0)
         .iter()
         .filter(|c| c.len() == len)
-        .flatten()
         .nth(0)
+        .unwrap()
 }
 
-fn get_char_map(i: &str) -> Vec<Vec<&str>> {
-    i
-        .trim()
-        .lines()
-        .map(|l| l.split(" | ").collect())
-        .map(|l: Vec<&str>| l.get(0))
-        .flatten()
-        .map(|l| l
-            .split(' ')
-        )
-        .flatten()
+fn get_segment(line: &str, n: usize) -> Vec<&str> {
+    line
+        .split(" | ")
+        .nth(n)
+        .unwrap()
+        .split(' ')
         .collect()
-}
-
-fn get_vals() {
-
 }
