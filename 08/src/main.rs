@@ -28,8 +28,12 @@ fn run(i: &str) {
 
     println!("{:#?}", lines);
 
-    let output_1478 = lines
-        .map(|l| l[1]
-            .trim()
-            .split(' ')
+    let output_1478: Vec<&&str> = lines
+        .iter()
+        .map(|l| l.get(1))
+        .flatten()
+        .collect();
+
+    println!("{:#?}", output_1478);
+
 }
