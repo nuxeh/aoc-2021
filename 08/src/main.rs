@@ -54,7 +54,6 @@ fn run(i: &str) {
     println!("{:?}", get_char("be cfbegad cbdgef fgaecd cgeb fdcge agebfd fecdb fabcd edb | fdgacbe cefdb cefbgd gcbe", 2));
 
     for line in i.lines() {
-        println!("{:?}", get_char(line, 2));
         println!("{:?}", analyse(line));
     }
 }
@@ -79,6 +78,8 @@ fn get_segment(line: &str, n: usize) -> Vec<&str> {
 fn analyse(line: &str) -> Vec<HashSet<char>> {
     let mut map: Vec<HashSet<char>> = vec![HashSet::new(); 10];
 
+    let mut seven = get_char(line, 3).to_string();
+
     get_char(line, 2)
         .chars()
         .for_each(|c| {
@@ -88,7 +89,10 @@ fn analyse(line: &str) -> Vec<HashSet<char>> {
             map[7].insert(c);
             map[8].insert(c);
             map[9].insert(c);
+            seven.remove(seven.find(c).unwrap());
         });
+
+    println!("{} {}", seven, seven.len());
 
     map
 }
