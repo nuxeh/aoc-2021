@@ -27,4 +27,9 @@ fn run(i: &str) {
         .collect();
 
     println!("{:#?}", lines);
+
+    let output_1478 = lines
+        .map(|l| l[1]
+            .trim()
+            .split(' ')
 }
