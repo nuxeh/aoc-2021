@@ -84,6 +84,7 @@ fn analyse(line: &str) -> Vec<HashSet<char>> {
         .chars()
         .for_each(|c| {
             map[0].insert(c);
+            map[1].insert(c);
             map[3].insert(c);
             map[4].insert(c);
             map[7].insert(c);
@@ -91,6 +92,16 @@ fn analyse(line: &str) -> Vec<HashSet<char>> {
             map[9].insert(c);
             seven.remove(seven.find(c).unwrap());
         });
+
+    let top = seven.chars().nth(0).unwrap();
+    map[0].insert(top);
+    map[2].insert(top);
+    map[3].insert(top);
+    map[5].insert(top);
+    map[6].insert(top);
+    map[7].insert(top);
+    map[8].insert(top);
+    map[9].insert(top);
 
     println!("{} {}", seven, seven.len());
 
