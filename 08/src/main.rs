@@ -50,12 +50,11 @@ fn run(i: &str) {
 
     // Part 2
 
-    let map: Vec<Vec<char>> = vec![vec![]; 8];
-
     println!("{:?}", get_char("be cfbegad cbdgef fgaecd cgeb fdcge agebfd fecdb fabcd edb | fdgacbe cefdb cefbgd gcbe", 2));
 
     for line in i.lines() {
         println!("{:?}", get_char(line, 2));
+        println!("{:?}", analyse(line));
     }
 }
 
@@ -74,4 +73,21 @@ fn get_segment(line: &str, n: usize) -> Vec<&str> {
         .unwrap()
         .split(' ')
         .collect()
+}
+
+fn analyse(line: &str) -> Vec<Vec<char>> {
+    let mut map: Vec<Vec<char>> = vec![vec![]; 10];
+
+    get_char(line, 2)
+        .chars()
+        .for_each(|c| {
+            map[0].push(c);
+            map[3].push(c);
+            map[4].push(c);
+            map[7].push(c);
+            map[8].push(c);
+            map[9].push(c);
+        });
+
+    map
 }
