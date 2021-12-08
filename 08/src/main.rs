@@ -54,6 +54,9 @@ fn run(i: &str) {
 
     println!("{:?}", get_char("be cfbegad cbdgef fgaecd cgeb fdcge agebfd fecdb fabcd edb | fdgacbe cefdb cefbgd gcbe", 2));
 
+    for line in i.lines() {
+        println!("{:?}", get_char(line, 2));
+    }
 }
 
 fn get_char(line: &str, len: usize) -> &str {
