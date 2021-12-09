@@ -49,11 +49,24 @@ fn run(i: &str) {
 
     println!("{:#?}", outputs_1478.iter().count());
 
+    let mut sum: usize = 0;
+
     // Part 2
     for line in i.lines() {
-        //println!("{:#?}", analyse(line));
+        let mut f = analyse(line)
+            .iter()
+            .enumerate()
+            .map(|(n, s)| (n, s.len()))
+            .collect::<Vec<(usize, usize)>>();
+
+        f.sort();
+
+        //println!("{:?}", f);
         println!("{:#?}", reconstitute(line));
+        sum += reconstitute(line) as usize;
     }
+
+    println!("sum={}", sum);
 }
 
 fn get_char(line: &str, len: usize) -> &str {
@@ -114,6 +127,9 @@ fn reconstitute(line: &str) -> u16 {
         .unwrap()
 }
 
+// [(0, 5), (1, 2), (2, 3), (3, 3), (4, 4), (5, 3), (6, 5), (7, 3), (8, 7), (9, 5)]
+// [(0, 5), (2, 3), (3, 3), (5, 3), (6, 5), (9, 5)]
+
 fn reconstitute_str(line: &str, s: &str) -> String {
     let eight = get_char(line, 7);
     let four = get_char(line, 4);
@@ -128,11 +144,11 @@ fn reconstitute_str(line: &str, s: &str) -> String {
     let map = analyse(line);
 
     if matches(s, &map[0].iter().collect::<String>()) { return "0".to_string() }
-    if matches(s, &map[2].iter().collect::<String>()) { return "2".to_string() }
-    if matches(s, &map[3].iter().collect::<String>()) { return "3".to_string() }
-    if matches(s, &map[5].iter().collect::<String>()) { return "5".to_string() }
     if matches(s, &map[6].iter().collect::<String>()) { return "6".to_string() }
     if matches(s, &map[9].iter().collect::<String>()) { return "9".to_string() }
+    if matches(s, &map[5].iter().collect::<String>()) { return "5".to_string() }
+    if matches(s, &map[2].iter().collect::<String>()) { return "2".to_string() }
+    if matches(s, &map[3].iter().collect::<String>()) { return "3".to_string() }
 
     "".to_string()
 }
