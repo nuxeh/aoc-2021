@@ -90,6 +90,14 @@ fn add(first: &str, second: &str) -> String {
     v.iter().collect()
 }
 
+fn matches_exactly(first: &str, second: &str) -> bool {
+    if second.len() == first.len() {
+        matches(first, second)
+    } else {
+        false
+    }
+}
+
 fn matches(first: &str, second: &str) -> bool {
     second
         .chars()
@@ -112,10 +120,10 @@ fn reconstitute_str(line: &str, s: &str) -> String {
     let seven = get_char(line, 3);
     let one = get_char(line, 2);
 
-    if matches(s, eight) { return "8".to_string() }    
-    if matches(s, four) { return "4".to_string() }    
-    if matches(s, seven) { return "7".to_string() }    
-    if matches(s, one) { return "1".to_string() }    
+    if matches_exactly(s, eight) { return "8".to_string() }    
+    if matches_exactly(s, four) { return "4".to_string() }    
+    if matches_exactly(s, seven) { return "7".to_string() }    
+    if matches_exactly(s, one) { return "1".to_string() }    
 
     let map = analyse(line);
 
