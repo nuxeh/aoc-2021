@@ -54,7 +54,7 @@ fn run(i: &str) {
     println!("{:?}", get_char("be cfbegad cbdgef fgaecd cgeb fdcge agebfd fecdb fabcd edb | fdgacbe cefdb cefbgd gcbe", 2));
 
     for line in i.lines() {
-        println!("{:?}", analyse(line));
+        println!("{:#?}", analyse(line));
     }
 }
 
@@ -72,6 +72,13 @@ fn get_segment(line: &str, n: usize) -> Vec<&str> {
         .nth(n)
         .unwrap()
         .split(' ')
+        .collect()
+}
+
+fn subtract_from(first: &str, second: &str) -> String {
+    first
+        .chars()
+        .filter(|c| !second.contains(c))
         .collect()
 }
 
@@ -102,6 +109,20 @@ fn analyse(line: &str) -> Vec<HashSet<char>> {
     map[7].insert(top);
     map[8].insert(top);
     map[9].insert(top);
+
+    let eight = get_char(line, 7);
+    eight
+        .chars()
+        .for_each(|c| {
+            map[8].insert(c);
+        });
+
+    let four = get_char(line, 4);
+    four
+        .chars()
+        .for_each(|c| {
+            map[4].insert(c);
+        });
 
     println!("{} {}", seven, seven.len());
 
