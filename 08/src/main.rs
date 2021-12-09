@@ -78,7 +78,7 @@ fn get_segment(line: &str, n: usize) -> Vec<&str> {
 fn subtract_from(first: &str, second: &str) -> String {
     first
         .chars()
-        .filter(|c| !second.contains(c))
+        //.filter(|c| !second.contains(c))
         .collect()
 }
 
