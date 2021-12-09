@@ -50,11 +50,9 @@ fn run(i: &str) {
     println!("{:#?}", outputs_1478.iter().count());
 
     // Part 2
-
-    println!("{:?}", get_char("be cfbegad cbdgef fgaecd cgeb fdcge agebfd fecdb fabcd edb | fdgacbe cefdb cefbgd gcbe", 2));
-
     for line in i.lines() {
-        println!("{:#?}", analyse(line));
+        //println!("{:#?}", analyse(line));
+        println!("{:#?}", reconstitute(line));
     }
 }
 
@@ -80,6 +78,55 @@ fn subtract_from(first: &str, second: &str) -> String {
         .chars()
         .filter(|c| !second.contains(*c))
         .collect()
+}
+
+fn add(first: &str, second: &str) -> String {
+    let mut v: Vec<char> = first
+        .chars()
+        .chain(second.chars())
+        .collect();
+    v.sort();
+    v.dedup();
+    v.iter().collect()
+}
+
+fn matches(first: &str, second: &str) -> bool {
+    second
+        .chars()
+        .filter(|c| first.contains(*c))
+        .count() == second.len()
+}
+
+fn reconstitute(line: &str) -> u16 {
+    get_segment(line, 1)
+        .iter()
+        .map(|s| reconstitute_str(line, s))
+        .collect::<String>()
+        .parse()
+        .unwrap()
+}
+
+fn reconstitute_str(line: &str, s: &str) -> String {
+    let eight = get_char(line, 7);
+    let four = get_char(line, 4);
+    let seven = get_char(line, 3);
+    let one = get_char(line, 2);
+
+    if matches(s, eight) { return "8".to_string() }    
+    if matches(s, four) { return "4".to_string() }    
+    if matches(s, seven) { return "7".to_string() }    
+    if matches(s, one) { return "1".to_string() }    
+
+    let map = analyse(line);
+
+    if matches(s, &map[0].iter().collect::<String>()) { return "0".to_string() }
+    if matches(s, &map[2].iter().collect::<String>()) { return "2".to_string() }
+    if matches(s, &map[3].iter().collect::<String>()) { return "3".to_string() }
+    if matches(s, &map[5].iter().collect::<String>()) { return "5".to_string() }
+    if matches(s, &map[6].iter().collect::<String>()) { return "6".to_string() }
+    if matches(s, &map[9].iter().collect::<String>()) { return "9".to_string() }
+
+    "".to_string()
 }
 
 fn analyse(line: &str) -> Vec<HashSet<char>> {
@@ -112,6 +159,7 @@ fn analyse(line: &str) -> Vec<HashSet<char>> {
         .chars()
         .for_each(|c| {
             map[4].insert(c);
+            map[9].insert(c);
         });
 
     seven
@@ -130,9 +178,33 @@ fn analyse(line: &str) -> Vec<HashSet<char>> {
     map[8].insert(top);
     map[9].insert(top);
 
-    println!("{} {} {}", seven, one, top);
+    //println!("{} {} {}", seven, one, top);
 
-    //subtract_from(
+    let almost_six = subtract_from(eight, seven);
+
+    almost_six
+        .chars()
+        .for_each(|c| {
+            map[6].insert(c);
+        });
+
+    let little_ell = subtract_from(&almost_six, four); 
+
+    little_ell
+        .chars()
+        .for_each(|c| {
+            map[0].insert(c);
+            map[2].insert(c);
+        });
+
+    let higher_little_ell = subtract_from(four, one);
+
+    higher_little_ell
+        .chars()
+        .for_each(|c| {
+            map[5].insert(c);
+            map[9].insert(c);
+        });
 
     map
 }
