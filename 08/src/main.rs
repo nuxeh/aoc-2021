@@ -78,16 +78,19 @@ fn get_segment(line: &str, n: usize) -> Vec<&str> {
 fn subtract_from(first: &str, second: &str) -> String {
     first
         .chars()
-        //.filter(|c| !second.contains(c))
+        .filter(|c| !second.contains(*c))
         .collect()
 }
 
 fn analyse(line: &str) -> Vec<HashSet<char>> {
     let mut map: Vec<HashSet<char>> = vec![HashSet::new(); 10];
 
-    let mut seven = get_char(line, 3).to_string();
+    let seven = get_char(line, 3);
+    let eight = get_char(line, 7);
+    let four = get_char(line, 4);
+    let one = get_char(line, 2);
 
-    get_char(line, 2)
+    one
         .chars()
         .for_each(|c| {
             map[0].insert(c);
@@ -97,10 +100,27 @@ fn analyse(line: &str) -> Vec<HashSet<char>> {
             map[7].insert(c);
             map[8].insert(c);
             map[9].insert(c);
-            seven.remove(seven.find(c).unwrap());
         });
 
-    let top = seven.chars().nth(0).unwrap();
+    eight
+        .chars()
+        .for_each(|c| {
+            map[8].insert(c);
+        });
+
+    four
+        .chars()
+        .for_each(|c| {
+            map[4].insert(c);
+        });
+
+    seven
+        .chars()
+        .for_each(|c| {
+            map[7].insert(c);
+        });
+
+    let top = subtract_from(seven, one).chars().nth(0).unwrap();
     map[0].insert(top);
     map[2].insert(top);
     map[3].insert(top);
@@ -110,21 +130,9 @@ fn analyse(line: &str) -> Vec<HashSet<char>> {
     map[8].insert(top);
     map[9].insert(top);
 
-    let eight = get_char(line, 7);
-    eight
-        .chars()
-        .for_each(|c| {
-            map[8].insert(c);
-        });
+    println!("{} {} {}", seven, one, top);
 
-    let four = get_char(line, 4);
-    four
-        .chars()
-        .for_each(|c| {
-            map[4].insert(c);
-        });
-
-    println!("{} {}", seven, seven.len());
+    //subtract_from(
 
     map
 }
